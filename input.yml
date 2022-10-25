@@ -1,0 +1,13 @@
+deployment:
+  - app_name: type-a
+    namespace: namespace-1
+    image_registry: nginx:latest
+    replicas: 5
+    port: 80
+    protocol: TCP
+  - app_name: type-a
+    namespace: namespace-2
+    image_registry: nginx:latest
+    replicas: 5
+    port: 80
+    protocol: TCP

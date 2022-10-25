@@ -1,0 +1,6 @@
+- name:          Deploy new objects into k8s
+  hosts:         localhost
+  vars_files:
+    - input.yml
+  roles:
+    - k8s-operator

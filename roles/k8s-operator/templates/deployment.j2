@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ item.app_name }}
+  namespace: {{ item.namespace }}
+  labels:
+   app: {{ item.app_name }}
+spec:
+  replicas: {{ item.replicas }}
+  selector:
+    matchLabels:
+      app: {{ item.app_name }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: {{ item.app_name }}
+    spec:
+      containers:
+      - name: {{ item.app_name }}
+        image: {{ item.image_registry }}
+        ports:
+        - containerPort: {{ item.port }}
+          protocol: {{ item.protocol }}
+      imagePullSecrets:
+      - name: regcred
+

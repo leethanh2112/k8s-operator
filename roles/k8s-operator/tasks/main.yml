@@ -1,0 +1,26 @@
+---
+# tasks file for roles/k8s-operator
+- name: Generate namespace configuration from jinja
+  template:
+    src: "ns.j2"
+    dest: "/tmp/{{ item.namespace }}_ns.yml"
+    mode: 0644
+  with_list: "{{ deployment }}"
+
+- name: Create namespace for app
+  shell: kubectl apply -f /tmp/{{ item.namespace }}_ns.yml
+  with_list: "{{ deployment }}"
+
+- name: Generate deployment configuration from jinja
+  template:
+    src: "deployment.j2"
+    dest: "/tmp/{{ item.namespace }}_deployment.yml"
+    mode: 0644
+  with_list: "{{ deployment }}"
+
+- name: Create deployment for app
+  shell: kubectl apply -f /tmp/{{ item.namespace }}_deployment.yml
+  with_list: "{{ deployment }}"
+
+
+
