@@ -26,5 +26,11 @@ deployment:
 ```
 ansible-playbook k8s-operator.yml 
 ```
+
+## Verify pods in K8s
+```
+kubectl get pod -n namespace-1
+kubectl get pod -n namespace-2
+```
     
         
